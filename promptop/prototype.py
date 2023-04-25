@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-from typing import Optional
+from typing import Callable, List, Optional
 
 import openai
 import requests
@@ -49,33 +49,57 @@ def save_image(image_url: str, file_name: str) -> None:
     return None
 
 
+# TODO: add token limitation check
+def get_request_prompt(history_chats: List[str], question: str) -> str:
+    history_context = " ".join(history_chats)
+    return f"Chat History: {history_context}\n New Question: {question}"
+
+
 def main() -> None:
+    history_context: List[str] = []
+
+    def to_human(x: str) -> str:
+        return f"Human: {x}"
+
+    def to_ai(x: str) -> str:
+        return f"AI: {x}"
+
     print(">>>type stop to end, type go to gen image<<<\n")
     basic_role = (
         "You're a Prompt Engineer. You help people enrich their description into "
         "Stable Diffusion Prompts. You know the pros and cons. You will provide "
-        "the most precise prompts. Are you ready?"
+        "the most precise prompts. You will only answer with prompts. Are you ready?"
     )
+    history_context.append(to_human(basic_role))
     print(f"> {basic_role}")
     response = get_chatgpt_response(basic_role.strip(), expected_tokens=5)
+    if response is None:
+        print("> No AI response received. Stopped.")
+        return
+    history_context.append(to_ai(response))
     print(f"AI: {response}")
 
     user_prompt = input(
         "> Please provide a brief description of the image you want to generate: "
     )
-    refined_prompt: Optional[str] = user_prompt
+    refined_prompt: Optional[str] = None
     while user_prompt != "stop" and user_prompt != "go":
+        history_context.append(to_human(user_prompt))
         if user_prompt is not None:
-            refined_prompt = get_chatgpt_response(user_prompt)
+            prompt_request = get_request_prompt(history_context, user_prompt)
+            refined_prompt = get_chatgpt_response(prompt_request)
         if refined_prompt is None:
+            print("> No AI response received. Stopped.")
             return
         print(f"AI: {refined_prompt}")
         user_prompt = input("> ")
+        history_context.append(to_ai(refined_prompt))
 
     if user_prompt == "stop":
         print("> Bye!")
     if refined_prompt is not None:
         image_url = generate_dalle_image(refined_prompt)
+        # TODO avoid overriding.
         save_image(image_url, "generated_image.png")
         print("> Image saved as 'generated_image.png'")
     else:
