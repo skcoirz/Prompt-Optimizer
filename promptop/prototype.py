@@ -9,6 +9,7 @@ from PIL import Image
 ## Params
 _TEMPERATURE: float = 0.3
 _OUTPUT_DIR: str = "out/"
+_CONV_RECORDS: str = "conv_record.txt"
 
 # OpenAI API: https://platform.openai.com/docs/api-reference/completions/create
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -57,6 +58,7 @@ def get_request_prompt(history_chats: List[str], question: str) -> str:
 
 def main() -> None:
     history_context: List[str] = []
+    record_file: str = _OUTPUT_DIR + _CONV_RECORDS
 
     def to_human(x: str) -> str:
         return f"Human: {x}"
@@ -64,19 +66,28 @@ def main() -> None:
     def to_ai(x: str) -> str:
         return f"AI: {x}"
 
+    def record_to_file(x: str) -> None:
+        with open(record_file, "w+") as f:
+            f.write(x + "\n")
+        return None
+
+    def record(x: str) -> None:
+        history_context.append(x)
+        record_to_file(x)
+
     print(">>>type stop to end, type go to gen image<<<\n")
     basic_role = (
         "You're a Prompt Engineer. You help people enrich their description into "
         "Stable Diffusion Prompts. You know the pros and cons. You will provide "
-        "the most precise prompts. You will only answer with prompts. Are you ready?"
+        "the most precise prompts. Are you ready?"
     )
-    history_context.append(to_human(basic_role))
+    record(to_human(basic_role))
     print(f"> {basic_role}")
     response = get_chatgpt_response(basic_role.strip(), expected_tokens=5)
     if response is None:
         print("> No AI response received. Stopped.")
         return
-    history_context.append(to_ai(response))
+    record(to_ai(response))
     print(f"AI: {response}")
 
     user_prompt = input(
@@ -84,7 +95,7 @@ def main() -> None:
     )
     refined_prompt: Optional[str] = None
     while user_prompt != "stop" and user_prompt != "go":
-        history_context.append(to_human(user_prompt))
+        record(to_human(user_prompt))
         if user_prompt is not None:
             prompt_request = get_request_prompt(history_context, user_prompt)
             refined_prompt = get_chatgpt_response(prompt_request)
@@ -93,7 +104,7 @@ def main() -> None:
             return
         print(f"AI: {refined_prompt}")
         user_prompt = input("> ")
-        history_context.append(to_ai(refined_prompt))
+        record(to_ai(refined_prompt))
 
     if user_prompt == "stop":
         print("> Bye!")
