@@ -1,6 +1,9 @@
 # Ignore generated images
 out/
 
+# Ignore Mac OS local fils
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
