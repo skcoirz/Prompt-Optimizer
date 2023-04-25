@@ -1,6 +1,6 @@
 import os
 from io import BytesIO
-from typing import Callable, List, Optional
+from typing import List, Optional
 
 import openai
 import requests
@@ -52,14 +52,11 @@ def save_image(image_url: str, file_name: str) -> None:
 
 # TODO: add token limitation check
 def get_request_prompt(history_chats: List[str], question: str) -> str:
-    history_context = " ".join(history_chats)
+    history_context = "\n".join(history_chats)
     return f"Chat History: {history_context}\n New Question: {question}"
 
 
 def main() -> None:
-    history_context: List[str] = []
-    record_file: str = _OUTPUT_DIR + _CONV_RECORDS
-
     def to_human(x: str) -> str:
         return f"Human: {x}"
 
@@ -67,7 +64,7 @@ def main() -> None:
         return f"AI: {x}"
 
     def record_to_file(x: str) -> None:
-        with open(record_file, "w+") as f:
+        with open(record_file, "a+") as f:
             f.write(x + "\n")
         return None
 
@@ -75,11 +72,14 @@ def main() -> None:
         history_context.append(x)
         record_to_file(x)
 
+    history_context: List[str] = []
+    record_file: str = _OUTPUT_DIR + _CONV_RECORDS
+    record_to_file("\n>>new conversion begins here<<")
+
     print(">>>type stop to end, type go to gen image<<<\n")
     basic_role = (
-        "You're a Prompt Engineer. You help people enrich their description into "
-        "Stable Diffusion Prompts. You know the pros and cons. You will provide "
-        "the most precise prompts. Are you ready?"
+        "You're a Prompt Engineer. You enrich their description into "
+        "Stable Diffusion Prompts. Are you ready?"
     )
     record(to_human(basic_role))
     print(f"> {basic_role}")
@@ -102,7 +102,7 @@ def main() -> None:
         if refined_prompt is None:
             print("> No AI response received. Stopped.")
             return
-        print(f"AI: {refined_prompt}")
+        print(refined_prompt)
         user_prompt = input("> ")
         record(to_ai(refined_prompt))
 
