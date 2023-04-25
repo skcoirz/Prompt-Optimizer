@@ -16,6 +16,7 @@ setup(
     author='Skcoirz',
     install_requires=[
         "openai",
+        "Pillow",
     ],
     packages=find_packages(),
     classifiers=[
