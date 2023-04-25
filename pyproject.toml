@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "promptop"
+version = "0.0.1"
+description = "optimize prompts for stable diffusion"
+authors = ["Mike Wang <skcoirz@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/skcoirz/Prompt-Optimizer"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+requests = "^2.23.0"
+openai = {version = "^0"}
+pillow = "^9.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
