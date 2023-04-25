@@ -10,7 +10,9 @@ Plan & Progress
 
 - ~~Generate image with DALL-E with the prompt provided by GPT.~~
 
-- (Iteration) Use GPT to optimize prompts in an interactive way.
+- ~~(Iteration) Use GPT to optimize prompts in an interactive way.~~
+
+- Make Prompt more accurate.
 
 - (Evaluation) Evaluate how good the prompt is.
 
@@ -35,6 +37,8 @@ Plan & Progress
 - GPT can convert a user description into a prompt and send it to DALL-E.
 
 - Image is saved on local.
+
+- Added memotry feature. (TODO: need to consider token limitation)
 
 
 
