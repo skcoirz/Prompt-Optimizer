@@ -20,7 +20,6 @@ def get_chatgpt_response(prompt, expected_tokens=200):
             messages=[{"role": "user", "content": prompt}],
             max_tokens=expected_tokens,
             n=1,
-            stop=None,
             temperature=_TEMPERATURE,
         )
         return response.choices[0].message.content.strip()

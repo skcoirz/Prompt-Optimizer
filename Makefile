@@ -2,6 +2,9 @@
 
 all: help
 
+run:
+	python3 promptop/prototype.py
+
 coverage:
 	poetry run pytest --cov \
 		--cov-config=.coveragerc \
