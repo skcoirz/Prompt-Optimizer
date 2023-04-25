@@ -65,16 +65,16 @@ def main() -> None:
     )
     refined_prompt: Optional[str] = user_prompt
     while user_prompt != "stop" and user_prompt != "go":
-        if (user_prompt is not None):
+        if user_prompt is not None:
             refined_prompt = get_chatgpt_response(user_prompt)
-        if (refined_prompt is None):
+        if refined_prompt is None:
             return
         print(f"AI: {refined_prompt}")
         user_prompt = input("> ")
 
     if user_prompt == "stop":
         print("> Bye!")
-    if (refined_prompt is not None):
+    if refined_prompt is not None:
         image_url = generate_dalle_image(refined_prompt)
         save_image(image_url, "generated_image.png")
         print("> Image saved as 'generated_image.png'")
