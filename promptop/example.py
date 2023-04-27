@@ -4,7 +4,7 @@ from promptop.api import OpenAIApiHandler, OpenAIModel
 from promptop.img import PipeContainer, RepoID
 
 
-def main() -> None:
+def example() -> None:
     handler = OpenAIApiHandler(OpenAIModel.GPT35)
     handler.setup()
 
@@ -46,5 +46,4 @@ def main() -> None:
     #         break
 
 
-if __name__ == "__main__":
-    main()
+example()
