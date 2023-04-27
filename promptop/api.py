@@ -69,7 +69,6 @@ class OpenAIApiHandler:
 
     def _human_chat(self, x: str) -> None:
         self.record(f"Human: {x.strip()}")
-        print(f"> {x.strip()}")
 
     def _ai_chat(self, x: str, expected_tokens=200) -> str:
         response = self.get_chatgpt_response(x.strip(), expected_tokens)
@@ -98,6 +97,7 @@ class OpenAIApiHandler:
         self.record_to_file("\n>>new conversion begins here<<")
         print(">>>type stop to end, type go to gen image<<<\n")
         self._human_chat(pt.basic_role)
+        print(f"> {pt.basic_role.strip()}")
         self._ai_chat(pt.basic_role, expected_tokens=5)
 
     def ask_ai(self, x: str) -> str:

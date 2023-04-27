@@ -22,28 +22,12 @@ def example() -> None:
         print("> Bye!")
     if refined_prompt is not None:
         # TODO avoid overriding.
-        pipe = PipeContainer(RepoID.PASTEL).gen_and_save_image(
+        pipe = PipeContainer(RepoID.SD21).gen_and_save_image(
             prompt=refined_prompt, neg_prompt=""
         )
         print("> Image saved as 'generated_image.png'")
         pipe.open()
     else:
         print("> Skipped. Emptry refined_prompt")
-
-    # while True:
-    #     feedback = input(
-    #         "Do you want to refine the image based on your feedback? (yes/no): "
-    #         ).lower()
-    #     if feedback == "yes":
-    #         user_feedback = input("Please provide your feedback: ")
-    #         refined_prompt = get_chatgpt_response(
-    #             refined_prompt + " | " + user_feedback)
-    #         image_url = generate_dalle_image(refined_prompt)
-    #         save_image(image_url, "generated_image.png")
-    #         print("Image updated and saved as 'generated_image.png'")
-    #     else:
-    #         print("Thank you for using the image generation tool.")
-    #         break
-
 
 example()
