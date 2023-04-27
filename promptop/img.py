@@ -6,6 +6,7 @@ import torch
 from diffusers import StableDiffusionPipeline  # type: ignore
 from PIL import Image
 
+
 class RepoID(str, Enum):
     PASTEL = "andite/pastel-mix"
     SD21 = "stabilityai/stable-diffusion-2-1"
@@ -25,7 +26,7 @@ class PipeContainer:
         pipe.enable_attention_slicing()
         return pipe
 
-    def __init__(self, repo_id: RepoID):
+    def __init__(self, repo_id: RepoID) -> None:
         self.pipe = self._get_pipe_from_model(repo_id)
 
     def set_img_name(self, img_name: str) -> Self:
