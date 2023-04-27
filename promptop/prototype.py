@@ -5,6 +5,8 @@ from typing import List, Optional
 import openai
 import requests
 from PIL import Image
+from promptop.img import RepoID, PipeContainer
+import subprocess
 
 ## Params
 _TEMPERATURE: float = 0.3
@@ -109,10 +111,13 @@ def main() -> None:
     if user_prompt == "stop":
         print("> Bye!")
     if refined_prompt is not None:
-        image_url = generate_dalle_image(refined_prompt)
+        # image_url = generate_dalle_image(refined_prompt)
+        # save_image(image_url, "generated_image.png")
+        image = PipeContainer(RepoID.PASTEL).gen_image(prompt=refined_prompt, neg_prompt="")
+        image.save("generated_image.png")
         # TODO avoid overriding.
-        save_image(image_url, "generated_image.png")
         print("> Image saved as 'generated_image.png'")
+        subprocess.run(["open", 'generated_image.png'])
     else:
         print("> Skipped. Emptry refined_prompt")
 

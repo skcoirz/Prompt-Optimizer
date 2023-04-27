@@ -18,6 +18,7 @@ ruff = {version = "^0.0.262", optional = true}
 diffusers = "^0.16.0"
 accelerate = "^0.18.0"
 torch = "^2.0.0"
+transformers = "^4.28.1"
 
 
 [build-system]
