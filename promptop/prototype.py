@@ -1,12 +1,13 @@
 import os
+import subprocess
 from io import BytesIO
 from typing import List, Optional
 
 import openai
 import requests
 from PIL import Image
-from promptop.img import RepoID, PipeContainer
-import subprocess
+
+from promptop.img import PipeContainer, RepoID
 
 ## Params
 _TEMPERATURE: float = 0.3
@@ -113,11 +114,13 @@ def main() -> None:
     if refined_prompt is not None:
         # image_url = generate_dalle_image(refined_prompt)
         # save_image(image_url, "generated_image.png")
-        image = PipeContainer(RepoID.PASTEL).gen_image(prompt=refined_prompt, neg_prompt="")
+        image = PipeContainer(RepoID.PASTEL).gen_image(
+            prompt=refined_prompt, neg_prompt=""
+        )
         image.save("generated_image.png")
         # TODO avoid overriding.
         print("> Image saved as 'generated_image.png'")
-        subprocess.run(["open", 'generated_image.png'])
+        subprocess.run(["open", "generated_image.png"])
     else:
         print("> Skipped. Emptry refined_prompt")
 
