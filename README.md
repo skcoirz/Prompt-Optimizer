@@ -2,8 +2,6 @@
 
 Provide a way using GPT to optimize prompts for Stable Diffusion usage.
 
-
-
 Plan & Progress
 
 - ~~Use GPT to generate prompts based on initial user input.~~
@@ -18,9 +16,7 @@ Plan & Progress
 
 - (Feedbacks) Make the result more convenient to the user by adding new features, such as A/B variants.
 
-- (Output Variants) Hook up with local Stable Diffusion model.
-
-- (Distribution) Make it a python package. Make it possible to be integrated with other packagies. 
+- ~~(Output Variants) Hook up with local Stable Diffusion model.~~
 
 - (Distribution) Make it a python package. Make it possible to be integrated with other packagies. 
 
@@ -28,7 +24,13 @@ Plan & Progress
 
 - (Deploy) Deploy on Gradio.
 
+## April 26, 2023
 
+- Enabled local image generation based on HuggingFace Diffusers.
+
+- Supported Stable Diffusion 2.1 and another pastel style model.
+
+- Refactored code into separate files and relevant optimization.
 
 ### April 24, 2023
 
@@ -39,7 +41,5 @@ Plan & Progress
 - Image is saved on local.
 
 - Added memotry feature. (TODO: need to consider token limitation)
-
-
 
 > ![](./example.png)
