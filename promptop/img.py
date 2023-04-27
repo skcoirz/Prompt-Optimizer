@@ -6,10 +6,6 @@ import torch
 from diffusers import StableDiffusionPipeline  # type: ignore
 from PIL import Image
 
-_MODEL_DIR = "models/"
-_IMG_PATH = "./output.png"
-
-
 class RepoID(str, Enum):
     PASTEL = "andite/pastel-mix"
     SD21 = "stabilityai/stable-diffusion-2-1"
@@ -65,7 +61,9 @@ class PipeContainer:
     def gen_and_save_image(self, prompt: str, neg_prompt: str) -> Self:
         image = self.gen_image(prompt, neg_prompt)
         print(type(image))
-        image.save(_IMG_PATH)
+        _img_paths = [self._img_dir, self._img_name, self._img_postfix]
+        _img_path = "".join(_img_paths)
+        image.save(_img_path)
         return self
 
     def open(self) -> None:
