@@ -82,7 +82,7 @@ class OpenAIApiHandler:
             return ""
         response = result.group(2).strip()
         self.record(f"AI: {response}")
-        print(response)
+        print(f"AI: {response}")
         return response
 
     def record_to_file(self, x: str) -> None:

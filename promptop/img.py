@@ -61,7 +61,6 @@ class PipeContainer:
 
     def gen_and_save_image(self, prompt: str, neg_prompt: str) -> Self:
         image = self.gen_image(prompt, neg_prompt)
-        print(type(image))
         _img_paths = [self._img_dir, self._img_name, self._img_postfix]
         _img_path = "".join(_img_paths)
         image.save(_img_path)
@@ -71,6 +70,3 @@ class PipeContainer:
         _img_paths = [self._img_dir, self._img_name, self._img_postfix]
         _img_path = "".join(_img_paths)
         subprocess.run(["open", _img_path])
-
-
-PipeContainer(RepoID.PASTEL).gen_and_save_image("1girl", "")
