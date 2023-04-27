@@ -3,7 +3,7 @@
 all: help
 
 run:
-	python3 promptop/prototype.py
+	python3 promptop/example.py
 
 coverage:
 	poetry run pytest --cov \

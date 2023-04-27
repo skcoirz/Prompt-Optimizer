@@ -1,16 +1,11 @@
 import os
 import re
-import subprocess
 from enum import Enum
-from io import BytesIO
-from typing import List, Optional, Self
+from typing import List, Optional
 
 import openai
-import requests
-from PIL import Image
 
 import promptop.prompt_templates as pt
-from promptop.img import PipeContainer, RepoID
 
 ## Params
 _TEMPERATURE: float = 0.3

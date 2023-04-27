@@ -1,7 +1,7 @@
 from typing import Optional
 
-from promptop.api import OpenAIApiHandler, OpenAIModel
 from promptop.img import PipeContainer, RepoID
+from promptop.api import OpenAIApiHandler, OpenAIModel
 
 
 def main() -> None:
