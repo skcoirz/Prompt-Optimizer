@@ -22,18 +22,20 @@ class OpenAIModel(str, Enum):
 
 class OpenAIApiHandler:
     def __init__(self, model: OpenAIModel) -> None:
-        self.history_context: List[str] = []
+        # TODO: add token limitation check
+        self.history_context: List[Dict[str, str]] = []
         self.record_file: str = _OUTPUT_DIR + _CONV_RECORDS
         self.model: OpenAIModel = model
 
-    def get_chatgpt_response(
-        self, prompt: str, expected_tokens: int = 200
+    def get_response_from_msg(
+        self, message_stack: List[Dict[str, str]],
     ) -> Optional[str]:
         try:
             response = openai.ChatCompletion.create(
                 # gpt-4 api is not available for developers yet.
                 model=self.model,
-                messages=[{"role": "user", "content": prompt}],
+                # messages=[{"role": "user", "content": prompt}],
+                messages=message_stack,
                 max_tokens=expected_tokens,
                 n=1,
                 temperature=_TEMPERATURE,
@@ -53,54 +55,41 @@ class OpenAIApiHandler:
             size="256x256",
         )
         return response.data[0].url
-        # image_url = generate_dalle_image(refined_prompt)
-        # save_image(image_url, "generated_image.png")
 
-    # def save_image(image_url: str, file_name: str) -> None:
-    #     response = requests.get(image_url)
-    #     img = Image.open(BytesIO(response.content))
-    #     img.save(_OUTPUT_DIR + file_name)
-    #     return None
-
-    # TODO: add token limitation check
-    def get_request_prompt(self, history_chats: List[str], question: str) -> str:
-        conv = "\n".join(history_chats)
-        return f"Chat History: {conv}\n New Question: {question}"
-
-    def _human_chat(self, x: str) -> None:
-        self.record(f"Human: {x.strip()}")
-
-    def _ai_chat(self, x: str, expected_tokens=200) -> str:
-        response = self.get_chatgpt_response(x.strip(), expected_tokens)
-        if response is None:
-            print("> No AI response received. Stopped.")
-            return ""
-        response = response.strip()
-        result = re.search("(AI:)?(.*)", response)
-        if result is None:
-            return ""
-        response = result.group(2).strip()
-        self.record(f"AI: {response}")
-        print(f"AI: {response}")
-        return response
-
-    def record_to_file(self, x: str) -> None:
+    def _record_to_file(self, x: str) -> None:
         with open(self.record_file, "a+") as f:
             f.write(x + "\n")
         return None
 
-    def record(self, x: str) -> None:
-        self.history_context.append(x)
-        self.record_to_file(x)
+    def _store_human_chat(self, x: str) -> None:
+        self.history_context.append({"role": "user", "content": x})
+        self._record_to_file(f"Human: {x}")
 
-    def setup(self):
-        self.record_to_file("\n>>new conversion begins here<<")
-        print(">>>type stop to end, type go to gen image<<<\n")
-        self._human_chat(pt.basic_role)
-        print(f"> {pt.basic_role.strip()}")
-        self._ai_chat(pt.basic_role, expected_tokens=5)
+    def _store_ai_chat(self, x: str) -> None:
+        self.history_context.append({"role": "assistant", "content": x})
+        self._record_to_file(f"AI: {x}")
+
+    def _ask_and_store_ai(self, x: str) -> str:
+        response = self.get_response_from_msg(x)
+        if response is None:
+            print("> No AI response received. Stopped.")
+            return ""
+        search_result = re.search("(AI:)?(.*)", response)
+        if search_result is None:
+            return ""
+        prompt = search_result.group(2).strip()
+        self._store_ai_chat(prompt)
+        print(f"AI: {prompt}")
+        return prompt
 
     def ask_ai(self, x: str) -> str:
-        prompt_request = self.get_request_prompt(self.history_context, x)
-        self._human_chat(x)
-        return self._ai_chat(prompt_request)
+        self._store_human_chat(x.strip())
+        return self._ask_and_store_ai(x.strip())
+
+    def setup(self):
+        self._record_to_file("\n>>new conversion begins here<<")
+        print(">>>type stop to end, type go to gen image<<<\n")
+        self._store_human_chat(pt.basic_role)
+        print(f"> {pt.basic_role.strip()}")
+        self._ask_and_store_ai(pt.basic_role)
+
