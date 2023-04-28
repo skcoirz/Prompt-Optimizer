@@ -1,7 +1,7 @@
 import os
 import re
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 import openai
 
@@ -36,7 +36,7 @@ class OpenAIApiHandler:
                 model=self.model,
                 # messages=[{"role": "user", "content": prompt}],
                 messages=message_stack,
-                max_tokens=expected_tokens,
+                max_tokens=200,
                 n=1,
                 temperature=_TEMPERATURE,
             )
@@ -69,8 +69,8 @@ class OpenAIApiHandler:
         self.history_context.append({"role": "assistant", "content": x})
         self._record_to_file(f"AI: {x}")
 
-    def _ask_and_store_ai(self, x: str) -> str:
-        response = self.get_response_from_msg(x)
+    def _ask_and_store_ai(self) -> str:
+        response = self.get_response_from_msg(self.history_context)
         if response is None:
             print("> No AI response received. Stopped.")
             return ""
@@ -84,12 +84,14 @@ class OpenAIApiHandler:
 
     def ask_ai(self, x: str) -> str:
         self._store_human_chat(x.strip())
-        return self._ask_and_store_ai(x.strip())
+        return self._ask_and_store_ai()
 
     def setup(self):
         self._record_to_file("\n>>new conversion begins here<<")
         print(">>>type stop to end, type go to gen image<<<\n")
-        self._store_human_chat(pt.basic_role)
-        print(f"> {pt.basic_role.strip()}")
-        self._ask_and_store_ai(pt.basic_role)
+        task = pt.task_description.strip()
+        self.history_context.append({"role": "system", "content": task})
+        self._record_to_file(f"System: {task}")
+        print(f"> {task}")
+        self._ask_and_store_ai()
 

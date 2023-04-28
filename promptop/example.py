@@ -20,13 +20,14 @@ def example() -> None:
 
     if user_prompt == "stop":
         print("> Bye!")
+        return
     if refined_prompt is not None:
         img_name = "output"
         # TODO avoid overriding.
         pipe = PipeContainer(RepoID.SD21).set_img_name(img_name).gen_and_save_image(
             prompt=refined_prompt, neg_prompt="lowres, bad anotomy"
         )
-        print("> Image saved as '{img_name}'")
+        print("> Image saved as \'{img_name}\'")
         pipe.open()
     else:
         print("> Skipped. No prompt received.")
