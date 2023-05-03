@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "lib": [
+      "es2020"
+    ],
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "module": "commonjs",
+    "target": "es2020",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "baseUrl": ".",
+    "useUnknownInCatchVariables": false
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
