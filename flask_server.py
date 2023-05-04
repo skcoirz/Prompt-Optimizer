@@ -34,7 +34,7 @@ def iterate_prompt(user_prompt):
 
 @app.route('/generate-image/<prompt>')
 def generate_image(prompt):
-    img = PipeContainer(RepoID.SD21).set_img_name(img_name).gen_image(
+    img = PipeContainer(RepoID.SD21).gen_image(
         prompt=prompt, neg_prompt="lowres, bad anotomy"
     )
 
