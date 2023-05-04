@@ -26,7 +26,6 @@ lint lint_diff:
 
 test:
 	poetry run pytest tests/unit_tests
-
 tests:
 	poetry run pytest tests/unit_tests
 
