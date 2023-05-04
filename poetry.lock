@@ -2024,4 +2024,4 @@ lint-check = ["black", "mypy", "ruff"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<4.0"
-content-hash = "1e41689a8a792e4349b1195ad2d7d3be190e62238afdbd95e07629dfcaf93ebe"
+content-hash = "825def8801cc36134ff94d92b98750a871fde1988cd257ca3d523947ba52dd37"

@@ -17,6 +17,8 @@ accelerate = "^0.18.0"
 torch = "^2.0.0"
 transformers = "^4.28.1"
 pathlib = "^1.0.1"
+flask = "2.2.5"
+flask-session = "^0.4.1"
 
 [tool.poetry.group.pyserver.dependencies]
 flask = "2.2.5"
