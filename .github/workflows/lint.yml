@@ -27,7 +27,7 @@ jobs:
           cache: poetry
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install -E
       - name: Analysing the code with our lint
         run: |
           make lint
