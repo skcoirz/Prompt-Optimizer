@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "promptop"
-version = "0.0.1"
+version = "0.0.2"
 description = "optimize prompts for stable diffusion"
 authors = ["Mike Wang <skcoirz@gmail.com>"]
 license = "Apache-2.0"
@@ -12,18 +12,26 @@ python = ">=3.11,<4.0"
 requests = "^2.23.0"
 openai = {version = "^0"}
 pillow = "^9.5.0"
-mypy = {version = "^1.2.0", optional = true}
-black = {version = "^23.3.0", optional = true}
-ruff = {version = "^0.0.262", optional = true}
 diffusers = "^0.16.0"
 accelerate = "^0.18.0"
 torch = "^2.0.0"
 transformers = "^4.28.1"
-pytest = "^7.3.1"
 pathlib = "^1.0.1"
 
+[tool.poetry.group.pyserver.dependencies]
+flask = "2.2.5"
+flask-session = "^0.4.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.1"
+
+[tool.poetry.group.lint.dependencies]
+mypy = {version = "^1.2.0"}
+black = {version = "^23.3.0"}
+ruff = {version = "^0.0.262"}
+
+
 [tool.poetry.extras]
-lint_check = ["mypy", "black", "ruff"]
 
 
 [build-system]
