@@ -22,6 +22,9 @@ transformers = "^4.28.1"
 pytest = "^7.3.1"
 pathlib = "^1.0.1"
 
+[tool.poetry.extras]
+lint_check = ["mypy", "black", "ruff"]
+
 
 [build-system]
 requires = ["poetry-core"]
