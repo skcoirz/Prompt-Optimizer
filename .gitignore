@@ -167,3 +167,6 @@ cython_debug/
 javascript/openai-nodejs-server/node_modules
 javascript/openai-react-client/node_modules
 javascript/.idea
+
+
+flask_session

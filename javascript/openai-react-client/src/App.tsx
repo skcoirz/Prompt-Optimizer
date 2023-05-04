@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
     const HOST: string = "http://localhost:9797"
+    const FLASK_HOST: string = "http://localhost:5000"
 
     const [loading, setLoading] = useState(false);
     const [prompt, setPrompt] = useState("");
@@ -12,15 +13,21 @@ function App() {
     const [message, setMessage] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
+    const handleError = (error: unknown): void => {
+        console.log(`[ERROR] ${error}`);
+        setErrorMsg(`[ERROR] ${error}`);
+    }
+
+    const btnClickedInit = (): void => {
+        axios.get(`${FLASK_HOST}/init`).catch(handleError)
+    }
+
     const btnClickedCreateImg = (): void => {
         console.log(`btnClickedCreateImg: ${prompt}`)
         setLoading(true);
         clear()
         axios.post(`${HOST}/image`, {prompt,})
-            .catch(error => {
-                console.log(`[ERROR] ${error}`);
-                setErrorMsg(`[ERROR] ${error}`);
-            })
+            .catch(handleError)
             .then((response: AxiosResponse<any> | void): void => {
                 if (response?.data.status === 200) {
                     setImageUrl(response.data.msg);
@@ -39,10 +46,7 @@ function App() {
         setLoading(true);
         clear()
         axios.post(`${HOST}/chat`, {prompt,})
-            .catch(error => {
-                console.log(`[ERROR] ${error}`);
-                setErrorMsg(`[ERROR] ${error}`);
-            })
+            .catch(handleError)
             .then((response: AxiosResponse<any> | void): void => {
                 if (response?.data.status === 200) {
                     setMessage(response.data.msg);
@@ -73,6 +77,7 @@ function App() {
                         <textarea rows={10} cols={80} onChange={onInputTextChanged}/>
                     </div>
                     <div>
+                        <button className="btn btn-primary" onClick={btnClickedInit}>Initialize Session</button>
                         <button className="btn btn-primary" onClick={btnClickedCreateMsg}>Chat</button>
                         <button className="btn btn-primary" onClick={btnClickedCreateImg}>Image</button>
                     </div>
