@@ -2,6 +2,7 @@ import os
 import re
 from enum import Enum
 from typing import List, Optional, Dict
+from pathlib import Path
 
 import openai
 
@@ -9,11 +10,11 @@ import promptop.prompt_templates as pt
 
 ## Params
 _TEMPERATURE: float = 0.3
-_OUTPUT_DIR: str = "out/"
+_OUTPUT_DIR: str = "./out/"
 _CONV_RECORDS: str = "conv_record.txt"
 
 # OpenAI API: https://platform.openai.com/docs/api-reference/completions/create
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 class OpenAIModel(str, Enum):
@@ -24,7 +25,8 @@ class OpenAIApiHandler:
     def __init__(self, model: OpenAIModel) -> None:
         # TODO: add token limitation check
         self.history_context: List[Dict[str, str]] = []
-        self.record_file: str = _OUTPUT_DIR + _CONV_RECORDS
+        self.record_file: Path = Path(_OUTPUT_DIR + _CONV_RECORDS)
+        self.record_file.parents[0].mkdir(parents=True, exist_ok=True)
         self.model: OpenAIModel = model
 
     def get_response_from_msg(
@@ -57,7 +59,7 @@ class OpenAIApiHandler:
         return response.data[0].url
 
     def _record_to_file(self, x: str) -> None:
-        with open(self.record_file, "a+") as f:
+        with self.record_file.open("a+") as f:
             f.write(x + "\n")
         return None
 
