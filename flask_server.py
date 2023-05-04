@@ -34,12 +34,12 @@ def iterate_prompt(user_prompt):
 
 @app.route('/generate-image/<prompt>')
 def generate_image(prompt):
-    return 'Not yet implemented', 500
+    img = PipeContainer(RepoID.SD21).set_img_name(img_name).gen_image(
+        prompt=prompt, neg_prompt="lowres, bad anotomy"
+    )
 
-    # img_name = "output"
+    data = io.BytesIO()
+    img.save(data, 'JPEG', quality=70)
+    data.seek(0)
 
-    # pipe = PipeContainer(RepoID.SD21).set_img_name(img_name).gen_and_save_image(
-    #     prompt=prompt, neg_prompt="lowres, bad anotomy"
-    # )
-
-    # pipe.open()
+    return send_file(data, mimetype='image/jpeg')
