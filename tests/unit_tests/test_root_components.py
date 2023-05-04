@@ -1,5 +1,5 @@
 import unittest
-from promptop.__init__ import __all__
+from promptop import __all__
 
 class TestRootComponent(unittest.TestCase):
 	def test_root_components(self):
