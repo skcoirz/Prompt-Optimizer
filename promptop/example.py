@@ -2,6 +2,7 @@ from typing import Optional
 
 from promptop.api import OpenAIApiHandler, OpenAIModel
 from promptop.img import PipeContainer, RepoID
+from promptop.config import enable_configs_for_old_macbook
 
 
 def example() -> None:
@@ -32,4 +33,6 @@ def example() -> None:
     else:
         print("> Skipped. No prompt received.")
 
+
+# enable_configs_for_old_macbook()
 example()
