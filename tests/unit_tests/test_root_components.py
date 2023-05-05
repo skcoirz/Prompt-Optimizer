@@ -3,7 +3,7 @@ import unittest
 from promptop import __all__
 
 
-class TestRootComponent(unittest.TestCase):
+class TestRootComponent(unittest.TestCase) -> None:
     def test_root_components(self):
         assert __all__ == sorted(
             [

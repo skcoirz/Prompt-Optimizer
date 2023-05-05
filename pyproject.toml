@@ -33,6 +33,9 @@ types-pillow = "^9.5.0.2"
 black = {version = "^23.3.0"}
 ruff = {version = "^0.0.262"}
 
+[tool.mypy]
+ignore_missing_imports = "True"
+disallow_untyped_defs = "True"
 
 [tool.poetry.extras]
 
