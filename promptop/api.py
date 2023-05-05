@@ -1,8 +1,8 @@
 import os
 import re
 from enum import Enum
-from typing import List, Optional, Dict
 from pathlib import Path
+from typing import Dict, List, Optional
 
 import openai
 
@@ -30,7 +30,8 @@ class OpenAIApiHandler:
         self.model: OpenAIModel = model
 
     def get_response_from_msg(
-        self, message_stack: List[Dict[str, str]],
+        self,
+        message_stack: List[Dict[str, str]],
     ) -> Optional[str]:
         try:
             response = openai.ChatCompletion.create(
@@ -88,7 +89,7 @@ class OpenAIApiHandler:
         self._store_human_chat(x.strip())
         return self._ask_and_store_ai()
 
-    def setup(self):
+    def setup(self) -> None:
         self._record_to_file("\n>>new conversion begins here<<")
         print(">>>type stop to end, type go to gen image<<<\n")
         task = pt.task_description.strip()
@@ -96,4 +97,3 @@ class OpenAIApiHandler:
         self._record_to_file(f"System: {task}")
         print(f"> {task}")
         self._ask_and_store_ai()
-

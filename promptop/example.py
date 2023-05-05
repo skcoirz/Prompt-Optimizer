@@ -2,7 +2,6 @@ from typing import Optional
 
 from promptop.api import OpenAIApiHandler, OpenAIModel
 from promptop.img import PipeContainer, RepoID
-from promptop.config import enable_configs_for_old_macbook
 
 
 def example() -> None:
@@ -25,10 +24,12 @@ def example() -> None:
     if refined_prompt is not None:
         img_name = "output"
         # TODO avoid overriding.
-        pipe = PipeContainer(RepoID.SD21).set_img_name(img_name).gen_and_save_image(
-            prompt=refined_prompt, neg_prompt="lowres, bad anotomy"
+        pipe = (
+            PipeContainer(RepoID.SD21)
+            .set_img_name(img_name)
+            .gen_and_save_image(prompt=refined_prompt, neg_prompt="lowres, bad anotomy")
         )
-        print("> Image saved as \'{img_name}\'")
+        print("> Image saved as '{img_name}'")
         pipe.open()
     else:
         print("> Skipped. No prompt received.")

@@ -1,10 +1,15 @@
 import unittest
+
 from promptop import __all__
 
-class TestRootComponent(unittest.TestCase):
-	def test_root_components(self):
-		assert __all__ == sorted([
-			"OpenAIApiHandler",
-		    "OpenAIModel",
-		    "PipeContainer",
-		    "RepoID",]), "root public component is changed. please make sure it's intended."
+
+class TestRootComponent(unittest.TestCase) -> None:
+    def test_root_components(self):
+        assert __all__ == sorted(
+            [
+                "OpenAIApiHandler",
+                "OpenAIModel",
+                "PipeContainer",
+                "RepoID",
+            ]
+        ), "root public component is changed. please make sure it's intended."
