@@ -24,6 +24,12 @@ Plan & Progress
 
 - (Deploy) Deploy on Gradio.
 
+## May 4, 2023
+- Added Front-end on top of Node.js
+- Added Back-end Flask Server.
+- Set up CI Flow and Unittests.
+- TODO: Need to update all interfaces. They're not well connected.
+
 ## April 26, 2023
 
 - Enabled local image generation based on HuggingFace Diffusers.
