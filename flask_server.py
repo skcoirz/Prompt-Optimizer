@@ -1,3 +1,5 @@
+import io
+
 from flask import Flask, session
 from flask_session import Session
 
@@ -14,6 +16,8 @@ Session(app)
 
 @app.route('/init')
 def init():
+    enable_configs_for_old_macbook()
+
     handler = OpenAIApiHandler(OpenAIModel.GPT35)
     handler.setup()
 
@@ -34,6 +38,9 @@ def iterate_prompt(user_prompt):
 
 @app.route('/generate-image/<prompt>')
 def generate_image(prompt):
+    if prompt == '':
+        return 'bad request!', 400
+
     img = PipeContainer(RepoID.SD21).gen_image(
         prompt=prompt, neg_prompt="lowres, bad anotomy"
     )
