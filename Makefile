@@ -14,6 +14,7 @@ coverage:
 format:
 	poetry run black .
 	poetry run ruff --select I --fix .
+	deno fmt ./frontend/
 
 PYTHON_FILES=.
 lint: PYTHON_FILES=.
@@ -22,7 +23,8 @@ lint_diff: PYTHON_FILES=$(shell git diff --name-only --diff-filter=d master | gr
 lint lint_diff:
 	poetry run mypy $(PYTHON_FILES)
 	poetry run black $(PYTHON_FILES) --check
-	poetry run ruff .
+	poetry run ruff . --fix
+	deno lint ./frontend/
 
 test:
 	poetry run pytest tests/unit_tests
