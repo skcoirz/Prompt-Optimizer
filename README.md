@@ -1,5 +1,9 @@
 # Prompt-Optimizer
 
+*Architecture: Deno, Flask, Python.*
+
+## Dev Notes
+
 Provide a way using GPT to optimize prompts for Stable Diffusion usage.
 
 Plan & Progress
