@@ -1,4 +1,4 @@
-.PHONY: all format lint test tests test_watch integration_tests help
+.PHONY: all format lint test integration_tests help
 
 all: help
 
@@ -26,11 +26,6 @@ lint lint_diff:
 
 test:
 	poetry run pytest tests/unit_tests
-tests:
-	poetry run pytest tests/unit_tests
-
-test_watch:
-	poetry run ptw --now . -- tests/unit_tests
 
 integration_tests:
 	poetry run pytest tests/integration_tests
@@ -38,12 +33,7 @@ integration_tests:
 help:
 	@echo '----'
 	@echo 'coverage            - run unit tests and generate coverage report'
-	@echo 'docs_build          - build the documentation'
-	@echo 'docs_clean          - clean the documentation build artifacts'
-	@echo 'docs_linkcheck      - run linkchecker on the documentation'
 	@echo 'format              - run code formatters'
 	@echo 'lint                - run linters'
 	@echo 'test                - run unit tests'
-	@echo 'test_watch          - run unit tests in watch mode'
 	@echo 'integration_tests   - run integration tests'
-	@echo 'docker_tests        - run unit tests in docker'

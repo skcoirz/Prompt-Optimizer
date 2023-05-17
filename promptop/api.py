@@ -18,7 +18,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 class OpenAIModel(str, Enum):
-    GPT35 = "gpt-3.5-turbo-0301"
+    GPT35 = "gpt-4"
 
 
 class OpenAIApiHandler:
