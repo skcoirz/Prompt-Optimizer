@@ -9,15 +9,28 @@ export default function ConvBox() {
   const [msgs, setMsgs] = useState<IMsg[]>([]);
   const taskRef = useRef<HTMLInputElement | null>(null);
 
+  function addHumanMsg(msg: string) {
+    setMsgs((
+      p,
+    ) => [{
+      content: msg,
+    }, ...p]);
+  }
+
+  function addAIMsg(msg: string) {
+    setMsgs((
+      p,
+    ) => [{
+      content: "AI: " + msg,
+    }, ...p]);
+  }
+
   function askAI(e: Event) {
     e.preventDefault();
     if (!taskRef?.current?.value) return;
-    setMsgs((
-      p,
-    ) => [...p, {
-      content: taskRef?.current?.value ?? "",
-    }]);
+    addHumanMsg(taskRef?.current?.value ?? "");
     taskRef.current.value = "";
+    addAIMsg("answer")
   }
 
   return (
