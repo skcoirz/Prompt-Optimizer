@@ -1,18 +1,13 @@
 import { useRef, useState } from "preact/hooks";
-import { Tasks } from "../components/Tasks.tsx";
+import { Msgs } from "../components/Msgs.tsx";
 
-export interface ITask {
-  uuid: string;
-  desc: string;
+export interface IMsg {
+  content: string;
 }
 
 export default function ConvBox() {
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [msgs, setMsgs] = useState<IMsg[]>([]);
   const taskRef = useRef<HTMLInputElement | null>(null);
-
-  function removeTask(uuid: string) {
-    setTasks((tasks) => tasks.filter((task) => task.uuid != uuid));
-  }
 
   return (
     <div class="flex flex-col mx-auto max-w-screen-md w-full pt-5">
@@ -21,23 +16,22 @@ export default function ConvBox() {
         onSubmit={(e) => {
           e.preventDefault();
           if (!taskRef?.current?.value) return;
-          setTasks((
+          setMsgs((
             p,
           ) => [...p, {
-            desc: taskRef?.current?.value ?? "",
-            uuid: crypto.randomUUID(),
+            content: taskRef?.current?.value ?? "",
           }]);
           taskRef.current.value = "";
         }}
       >
         <input
-          class="w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2"
-          placeholder="Write your task here..."
+          class="w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2 focus:outline-none focus:ring focus:ring-red-500"
+          placeholder="describe your image here..."
           type="text"
           ref={taskRef}
         />
       </form>
-      <Tasks tasks={tasks} removeTask={removeTask} />
+      <Msgs msgs={msgs} />
     </div>
   );
 }
