@@ -1,5 +1,5 @@
 import { useRef, useState } from "preact/hooks";
-import { msg-boxes } from "../components/msg-boxes.tsx";
+import { msgboxes } from "../components/msgboxes.tsx";
 
 export interface IMsg {
   content: string;
@@ -22,6 +22,7 @@ export default function ConvBox() {
   }
 
   function askAI(e: Event) {
+    console.log("test")
     e.preventDefault();
     if (!taskRef?.current?.value) return;
     addHumanMsg(taskRef?.current?.value ?? "");
@@ -42,7 +43,7 @@ export default function ConvBox() {
           ref={taskRef}
         />
       </form>
-      <msg-boxes msgs={msgs} />
+      <msgboxes msgs={msgs} />
     </div>
   );
 }
