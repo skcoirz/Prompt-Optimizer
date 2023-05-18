@@ -1,4 +1,4 @@
-import { ITask } from "../islands/Todo.tsx";
+import { ITask } from "../islands/ConvBox.tsx";
 import { Task } from "./Task.tsx";
 
 interface TasksProps {

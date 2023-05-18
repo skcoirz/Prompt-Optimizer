@@ -1,5 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import Todo from "../islands/Todo.tsx";
+import ConvBox from "../islands/ConvBox.tsx";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
         <p class="font-monaco lowercase italic text-pink-600">
           hint: chat with AI to optimize your image prompt. type "go" to render img. type "stop" to leave.
         </p>
-        <Todo />
+        <ConvBox />
       </main>
     </>
   );
