@@ -1,5 +1,5 @@
 import { useRef, useState } from "preact/hooks";
-import { msg-boxes } from "../components/msg-boxes.tsx";
+import { Msgs } from "../components/Msgs.tsx";
 
 export interface IMsg {
   content: string;
@@ -9,24 +9,15 @@ export default function ConvBox() {
   const [msgs, setMsgs] = useState<IMsg[]>([]);
   const taskRef = useRef<HTMLInputElement | null>(null);
 
-  function addHumanMsg(msg: string) {
-    setMsgs((
-      p,
-    ) => [{ content: msg ?? "" }, ...p]);
-  }
-
-  function addAIMsg(msg: string) {
-    setMsgs((
-      p,
-    ) => [{ content: "AI: " + (msg ?? "") }, ...p]);
-  }
-
   function askAI(e: Event) {
     e.preventDefault();
     if (!taskRef?.current?.value) return;
-    addHumanMsg(taskRef?.current?.value ?? "");
+    setMsgs((
+      p,
+    ) => [...p, {
+      content: taskRef?.current?.value ?? "",
+    }]);
     taskRef.current.value = "";
-    addAIMsg("answer")
   }
 
   return (
@@ -42,7 +33,7 @@ export default function ConvBox() {
           ref={taskRef}
         />
       </form>
-      <msg-boxes msgs={msgs} />
+      <Msgs msgs={msgs} />
     </div>
   );
 }
