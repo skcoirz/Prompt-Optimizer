@@ -26,7 +26,7 @@ export default function ConvBox() {
       >
         <input
           class="w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2 focus:outline-none focus:ring focus:ring-red-500"
-          placeholder="describe your image here..."
+          placeholder="Write your task here..."
           type="text"
           ref={taskRef}
         />
