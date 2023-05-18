@@ -1,7 +1,7 @@
 import { Head } from "$fresh/runtime.ts";
 import Counter from "../islands/Counter.tsx";
 
-export default function Home() {
+export default function Test() {
   return (
     <>
       <Head>
@@ -17,7 +17,7 @@ export default function Home() {
           Welcome to `fresh`. Try updating this message in the ./routes/index.tsx
           file, and refresh.
         </p>
-        {/* <Counter start={3} /> */}
+        <Counter start={3} />
       </div>
     </>
   );
