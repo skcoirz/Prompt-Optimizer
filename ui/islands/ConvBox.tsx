@@ -9,20 +9,22 @@ export default function ConvBox() {
   const [msgs, setMsgs] = useState<IMsg[]>([]);
   const taskRef = useRef<HTMLInputElement | null>(null);
 
+  function askAI(e: Event) {
+    e.preventDefault();
+    if (!taskRef?.current?.value) return;
+    setMsgs((
+      p,
+    ) => [...p, {
+      content: taskRef?.current?.value ?? "",
+    }]);
+    taskRef.current.value = "";
+  }
+
   return (
     <div class="flex flex-col mx-auto max-w-screen-md w-full pt-5">
       <form
         class="flex gap-2 w-full"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (!taskRef?.current?.value) return;
-          setMsgs((
-            p,
-          ) => [...p, {
-            content: taskRef?.current?.value ?? "",
-          }]);
-          taskRef.current.value = "";
-        }}
+        onSubmit={askAI}
       >
         <input
           class="w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2 focus:outline-none focus:ring focus:ring-red-500"

@@ -14,7 +14,7 @@ coverage:
 format:
 	poetry run black .
 	poetry run ruff --select I --fix .
-	deno fmt ./frontend/
+	deno fmt ./ui/
 
 PYTHON_FILES=.
 lint: PYTHON_FILES=.
@@ -24,7 +24,7 @@ lint lint_diff:
 	poetry run mypy $(PYTHON_FILES)
 	poetry run black $(PYTHON_FILES) --check
 	poetry run ruff . --fix
-	deno lint ./frontend/
+	deno lint ./ui/
 
 test:
 	poetry run pytest tests/unit_tests
