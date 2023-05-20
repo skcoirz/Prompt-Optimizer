@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { OpenAI } from "https://deno.land/x/openai/mod.ts";
-import { TextMessage } from "../../connections/types.ts";
+import { IMessage } from "../../connections/types.ts";
 
 export const handler: Handlers = {
   async POST(req, _ctx) {
@@ -9,6 +9,7 @@ export const handler: Handlers = {
       return new Response(
         JSON.stringify({
           role: "ai",
+          type: "text",
           content: Deno.env.get("MOCK_TEXT_RETURN"),
         }),
         {
@@ -18,7 +19,7 @@ export const handler: Handlers = {
     }
 
     const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY"));
-    const msg: TextMessage = await req.json();
+    const msg: IMessage = await req.json();
     const chatCompletion = await openAI.createChatCompletion({
       model: "gpt-4",
       messages: [
@@ -26,8 +27,9 @@ export const handler: Handlers = {
       ],
     });
 
-    const answer: TextMessage = {
+    const answer: IMessage = {
       role: "ai",
+      type: "text",
       content: chatCompletion?.choices[0]?.message?.content || "no response",
     };
     return new Response(JSON.stringify(answer), {

@@ -1,7 +1,7 @@
 import { useRef, useState } from "preact/hooks";
-import { Messages } from "../components/Msgs.tsx";
+import { MessagesView } from "../components/Msgs.tsx";
 import { server } from "../connections/server.ts";
-import { TextMessage } from "../connections/types.ts";
+import { IMessage } from "../connections/types.ts";
 
 export interface IMsg {
   content: string;
@@ -9,15 +9,15 @@ export interface IMsg {
 
 export default function ConvBox() {
   const taskRef = useRef<HTMLInputElement | null>(null);
-  const [messages, setMessages] = useState<TextMessages>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
   // add human message
-  function addHumanMessage(msg: TextMessage) {
+  function addHumanMessage(msg: IMessage) {
     setMessages((p) => [msg, ...p]);
   }
 
   // add ai message
-  function addAIMessage(msg: TextMessage) {
+  function addAIMessage(msg: IMessage) {
     setMessages((p) => [msg, ...p]);
   }
 
@@ -29,10 +29,11 @@ export default function ConvBox() {
     taskRef.current.value = "";
     const gen_answer = server.genAskAI({
       role: "user",
+      type: "text",
       content: human_msg,
-    } as TextMessage);
+    } as IMessage);
     try {
-      const ai_answer: TextMessage = await gen_answer;
+      const ai_answer: IMessage = await gen_answer;
       addAIMessage(ai_answer);
     } catch (err) {
       alert(`Failed to fetch answer: ${err.message}`);
@@ -52,7 +53,7 @@ export default function ConvBox() {
           ref={taskRef}
         />
       </form>
-      <Messages messages={messages} />
+      <MessagesView messages={messages} />
     </div>
   );
 }

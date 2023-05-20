@@ -1,14 +1,14 @@
-import { Message } from "./Msg.tsx";
-import { TextMessage } from "../connections/types.ts";
+import { MessageView } from "./Msg.tsx";
+import { IMessage } from "../connections/types.ts";
 
 interface MessagesProps {
-  messages: TextMessage[];
+  messages: IMessage[];
 }
 
-export function Messages({ messages }: MessagesProps) {
+export function MessagesView({ messages }: MessagesProps) {
   return (
     <div class="flex-auto">
-      {messages.map((msg) => <Message message={msg} />)}
+      {messages.map((msg) => <MessageView message={msg} />)}
     </div>
   );
 }

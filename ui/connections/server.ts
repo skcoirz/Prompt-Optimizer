@@ -1,12 +1,12 @@
-import { TextMessage } from "./types.ts";
+import { IMessage } from "./types.ts";
 
 export class Server {
-  async genAskAI(msg: TextMessage): Promise<TextMessage> {
+  async genAskAI(msg: IMessage): Promise<IMessage> {
     const resp = await fetch("/api/gen_text", {
       method: "POST",
       body: JSON.stringify(msg),
     });
-    const ans: TextMessage = resp.json();
+    const ans: IMessage = resp.json();
     if (!resp.ok) {
       alert("Failed to get Answer");
       throw new Error(ans);

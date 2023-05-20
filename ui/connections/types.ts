@@ -1,13 +1,14 @@
-export type TextMessage = HumanTextMessage | AITextMessage;
+export type IMessage = IHumanMessage | IAIMessage;
 
-export interface BaseTextMessage {
+interface IMessageBase {
+  type: string;
   content: string;
 }
 
-export interface HumanTextMessage extends BaseTextMessage {
+interface IHumanMessage extends IMessageBase {
   role: "human";
 }
 
-export interface AITextMessage extends BaseTextMessage {
+interface IAIMessage extends IMessageBase {
   role: "ai";
 }

@@ -1,4 +1,4 @@
-import { TextMessage } from "../connections/types.ts";
+import { IMessage } from "../connections/types.ts";
 
 function renderContentForRole(message) {
   if (message.role == "ai") {
@@ -7,7 +7,7 @@ function renderContentForRole(message) {
   return <span>{message.content}</span>;
 }
 
-export function Message({ message }: { message: TextMessage }) {
+export function MessageView({ message }: { message: TextMessage }) {
   return (
     <div class="flex mb-4.5">
       <div>
