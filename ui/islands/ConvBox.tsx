@@ -1,5 +1,5 @@
 import { useRef, useState } from "preact/hooks";
-import { Msgs } from "../components/Msgs.tsx";
+import { Msgs, Messages } from "../components/Msgs.tsx";
 import { server } from "../connections/server.ts";
 import { TextMessage } from "../connections/types.ts";
 
@@ -10,6 +10,17 @@ export interface IMsg {
 export default function ConvBox() {
   const [msgs, setMsgs] = useState<IMsg[]>([]);
   const taskRef = useRef<HTMLInputElement | null>(null);
+  const [messages, setMessages] = useState<TextMessages>([]);
+
+  // add human message
+  function addHumanMessage(msg: TextMessage) {
+    setMessages((p) => [msg, ...p]);
+  }
+
+  // add ai message
+  function addAIMessage(msg: TextMessage) {
+    setMessages((p) => [msg, ...p]);
+  }
 
   function addHumanMsg(msg: string) {
     setMsgs((
@@ -32,17 +43,19 @@ export default function ConvBox() {
     if (!taskRef?.current?.value) return;
     const human_msg = taskRef?.current?.value ?? "";
     addHumanMsg(human_msg);
+    addHumanMessage({role: "human", content: human_msg});
     taskRef.current.value = "";
     const gen_answer = server.genAskAI({
       role: "user",
       content: human_msg,
     } as TextMessage);
-    // try {
+    try {
       const ai_answer: TextMessage = await gen_answer;
       addAIMsg(ai_answer?.content ?? "AI: No answer received.");
-    // } catch (err) {
-    //   alert(`Failed to fetch answer: ${err.message}`);
-    // }
+      addAIMessage(ai_answer);
+    } catch (err) {
+      alert(`Failed to fetch answer: ${err.message}`);
+    }
   }
 
   return (
@@ -58,7 +71,8 @@ export default function ConvBox() {
           ref={taskRef}
         />
       </form>
-      <Msgs msgs={msgs} />
+      {/* <Msgs msgs={msgs} /> */}
+      <Messages messages={messages} />
     </div>
   );
 }

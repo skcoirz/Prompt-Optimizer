@@ -1,4 +1,20 @@
 import { IMsg } from "../islands/ConvBox.tsx";
+import { TextMessage } from "../connections/types.ts";
+
+export function Message({ message }: { message: TextMessage }) {
+  return (
+    <div class="flex mb-4.5">
+      <div>
+        <p class="flex items-baseline mb-1.5">
+          <span class="mr-2 font-bold">
+            {"> "+message.role}
+          </span>
+        </p>
+        <p class="text-sm text-gray-800">{message.content}</p>
+      </div>
+    </div>
+  );
+}
 
 interface ConvMessage {
   msg: IMsg;
@@ -13,3 +29,4 @@ export function Msg({ msg }: ConvMessage) {
     </div>
   );
 }
+
