@@ -1,7 +1,7 @@
 import { useRef, useState } from "preact/hooks";
 import { Msgs } from "../components/Msgs.tsx";
-import { server } from "@/connections/server.ts";
-import {TextMessage} from "@/connections/types.ts";
+import { server } from "../connections/server.ts";
+import { TextMessage } from "../connections/types.ts";
 
 export interface IMsg {
   content: string;
@@ -33,13 +33,16 @@ export default function ConvBox() {
     const human_msg = taskRef?.current?.value ?? "";
     addHumanMsg(human_msg);
     taskRef.current.value = "";
-    gen_answer = server.ask(human_msg);
+    const gen_answer = server.genAskAI({
+      role: "user",
+      content: human_msg,
+    } as TextMessage);
     try {
       const ai_answer: TextMessage = await gen_answer;
+      addAIMsg(ai_answer?.content ?? "AI: No answer received.");
     } catch (err) {
       alert(`Failed to fetch answer: ${err.message}`);
     }
-    addAIMsg(ai_answer.content);
   }
 
   return (

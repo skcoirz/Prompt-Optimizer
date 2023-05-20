@@ -1,6 +1,9 @@
 # Ignore generated images
 out/
 
+# Ignore Deno .env
+ui/.env
+
 # Ignore Mac OS local fils
 .DS_Store
 

@@ -1,6 +1,6 @@
 export type TextMessage = HumanTextMessage | AITextMessage;
 
-export interface BaseTextMessage = {
+export interface BaseTextMessage {
     content: string;
 }
 
