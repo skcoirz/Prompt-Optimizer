@@ -13,7 +13,8 @@ export default function Home() {
           Prompt Op.
         </h1>
         <p class="font-monaco lowercase italic text-pink-600">
-          hint: chat with AI to optimize your image prompt. type "go" to render img. type "stop" to leave.
+          hint: chat with AI to optimize your image prompt. type "go" to render
+          img. type "stop" to leave.
         </p>
         <ConvBox />
       </main>

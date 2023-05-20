@@ -1,13 +1,13 @@
 export type TextMessage = HumanTextMessage | AITextMessage;
 
 export interface BaseTextMessage {
-    content: string;
+  content: string;
 }
 
 export interface HumanTextMessage extends BaseTextMessage {
-    role: "human";
+  role: "human";
 }
 
 export interface AITextMessage extends BaseTextMessage {
-    role: "ai";
+  role: "ai";
 }

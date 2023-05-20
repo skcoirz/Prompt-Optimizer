@@ -1,32 +1,23 @@
-import { IMsg } from "../islands/ConvBox.tsx";
 import { TextMessage } from "../connections/types.ts";
+
+function renderContentForRole(message) {
+  if (message.role == "ai") {
+    return <span class="text-cyan-600">{message.content}</span>;
+  }
+  return <span>{message.content}</span>;
+}
 
 export function Message({ message }: { message: TextMessage }) {
   return (
     <div class="flex mb-4.5">
       <div>
-        <p class="flex items-baseline mb-1.5">
-          <span class="mr-2 font-bold">
-            {"> "+message.role}
+        <p class="text-sm">
+          <span class="mr-2 font-bold italic">
+            {message.role}
           </span>
+          {renderContentForRole(message)}
         </p>
-        <p class="text-sm text-gray-800">{message.content}</p>
       </div>
     </div>
   );
 }
-
-interface ConvMessage {
-  msg: IMsg;
-}
-
-export function Msg({ msg }: ConvMessage) {
-  return (
-    <div class="w-full bg-gray-50 h-12 text-black rounded shadow flex justify-between items-center content-between">
-      <p class="p-2 w-5/6">
-        {msg.content}
-      </p>
-    </div>
-  );
-}
-
