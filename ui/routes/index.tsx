@@ -12,7 +12,7 @@ export default function Home() {
         <h1 class="text-3xl p-2 font-monaco lowercase">
           Prompt Op.
         </h1>
-        <p class="font-monaco lowercase italic text-pink-600">
+        <p class="font-monaco lowercase italic text-sm text-pink-600">
           hint: chat with AI to optimize your image prompt. type "go" to render
           img. type "stop" to leave.
         </p>

@@ -40,14 +40,13 @@ export default function ConvBox() {
   }
 
   return (
-    // <div class="flex flex-col mx-auto max-w-screen-md w-full pt-5">
     <div class="w-full flex-auto max-h-screen">
       <form
         class="flex gap-2 w-full"
         onSubmit={askAI}
       >
         <input
-          class="w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2 focus:outline-none focus:ring focus:ring-red-500"
+          class="mt-1 w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2 focus:outline-none focus:ring focus:ring-gray-400"
           placeholder="Write your task here..."
           type="text"
           ref={taskRef}
