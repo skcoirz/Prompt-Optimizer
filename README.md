@@ -24,9 +24,13 @@ Plan & Progress
 
 - (Distribution) Make it a python package. Make it possible to be integrated with other packagies. 
 
-- (Web UI) Provide a Web UI for better interaction.
+- (Web UI) Provide a Web UI for better interaction. (making progress)
 
-- (Deploy) Deploy on Gradio.
+## May 19, 2023
+- added initial UI with simple text generation. (Deno+Fresh)
+- TODO: need to add image gen.
+- TODO: need to connect with python back-end.
+> ![](./attachments/initial_ui.png)
 
 ## May 4, 2023
 - Added Front-end on top of Node.js
@@ -52,4 +56,4 @@ Plan & Progress
 
 - Added memotry feature. (TODO: need to consider token limitation)
 
-> ![](./example.png)
+> ![](./attachments/example.png)
