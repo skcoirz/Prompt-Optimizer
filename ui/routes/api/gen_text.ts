@@ -5,7 +5,7 @@ import { IMessage } from "../../connections/types.ts";
 export const handler: Handlers = {
   async POST(req, _ctx) {
     const msg: IMessage = await req.json();
-    if (Deno.env.get("ENABLE_MOCK") == "y") {
+    if (Deno.env.get("ENABLE_TEXT_MOCK") == "y") {
       console.log("mocked, text api answer with ", msg);
       return new Response(
         JSON.stringify({

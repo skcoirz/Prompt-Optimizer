@@ -21,17 +21,26 @@ export default function ConvBox() {
     setMessages((p) => [msg, ...p]);
   }
 
-  async function askAI(e: Event) {
+  async function genAnswer(e: Event) {
     e.preventDefault();
     if (!taskRef?.current?.value) return;
     const human_msg = taskRef?.current?.value ?? "";
     addHumanMessage({ role: "human", content: human_msg });
     taskRef.current.value = "";
-    const gen_answer = server.genTextAnswer({
-      role: "user",
-      type: "text",
-      content: human_msg,
-    } as IMessage);
+    let gen_answer = null;
+    if (human_msg.toLowerCase() == "go") {
+      gen_answer = server.genImageAnswer({
+        role: "user",
+        type: "text",
+        content: human_msg,
+      } as IMessage);
+    } else {
+      gen_answer = server.genTextAnswer({
+        role: "user",
+        type: "text",
+        content: human_msg,
+      } as IMessage);
+    }
     try {
       const ai_answer: IMessage = await gen_answer;
       addAIMessage(ai_answer);
@@ -44,7 +53,7 @@ export default function ConvBox() {
     <div class="w-full flex-auto max-h-screen">
       <form
         class="flex gap-2 w-full"
-        onSubmit={askAI}
+        onSubmit={genAnswer}
       >
         <input
           class="mt-1 w-full flex flex-row border-1 border-gray-500 h-10 rounded p-2 focus:outline-none focus:ring focus:ring-gray-400"
