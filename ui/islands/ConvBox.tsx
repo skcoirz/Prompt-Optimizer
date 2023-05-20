@@ -37,12 +37,12 @@ export default function ConvBox() {
       role: "user",
       content: human_msg,
     } as TextMessage);
-    try {
+    // try {
       const ai_answer: TextMessage = await gen_answer;
       addAIMsg(ai_answer?.content ?? "AI: No answer received.");
-    } catch (err) {
-      alert(`Failed to fetch answer: ${err.message}`);
-    }
+    // } catch (err) {
+    //   alert(`Failed to fetch answer: ${err.message}`);
+    // }
   }
 
   return (
