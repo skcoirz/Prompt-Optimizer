@@ -27,7 +27,7 @@ export default function ConvBox() {
     const human_msg = taskRef?.current?.value ?? "";
     addHumanMessage({ role: "human", content: human_msg });
     taskRef.current.value = "";
-    const gen_answer = server.genAskAI({
+    const gen_answer = server.genTextAnswer({
       role: "user",
       type: "text",
       content: human_msg,

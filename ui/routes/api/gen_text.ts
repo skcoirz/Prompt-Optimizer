@@ -4,8 +4,9 @@ import { IMessage } from "../../connections/types.ts";
 
 export const handler: Handlers = {
   async POST(req, _ctx) {
+    const msg: IMessage = await req.json();
     if (Deno.env.get("ENABLE_MOCK") == "y") {
-      console.log("mocked, text api call");
+      console.log("mocked, text api answer with ", msg);
       return new Response(
         JSON.stringify({
           role: "ai",
@@ -19,7 +20,6 @@ export const handler: Handlers = {
     }
 
     const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY"));
-    const msg: IMessage = await req.json();
     const chatCompletion = await openAI.createChatCompletion({
       model: "gpt-4",
       messages: [

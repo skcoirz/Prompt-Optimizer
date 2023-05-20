@@ -1,7 +1,7 @@
 import { IMessage } from "./types.ts";
 
 export class Server {
-  async genAskAI(msg: IMessage): Promise<IMessage> {
+  async genTextAnswer(msg: IMessage): Promise<IMessage> {
     const resp = await fetch("/api/gen_text", {
       method: "POST",
       body: JSON.stringify(msg),
