@@ -26,7 +26,7 @@ export const handler: Handlers = {
       size: "256x256",
       responseFormat: "b64_json",
     });
-    
+
     const answer: IMessage = {
       role: "ai",
       type: "image",

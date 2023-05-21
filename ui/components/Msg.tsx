@@ -17,18 +17,22 @@ function renderTextMessage(message) {
         {renderContentForRole(message)}
       </p>
     </div>
-  )
+  );
 }
 
 function renderImageMessage(message) {
   return (
     <div>
-      <p class="text-sm italic font-bold"> generated image </p>
+      <p class="text-sm italic font-bold">generated image</p>
       <div class="flex">
-        <img class="mx-auto h-60 border-2 border-black rounded-md" src={message.content} alt="generated image" />
+        <img
+          class="mx-auto h-60 border-2 border-black rounded-md"
+          src={message.content}
+          alt="generated image"
+        />
       </div>
     </div>
-  )
+  );
 }
 
 export function MessageView({ message }: { message: TextMessage }) {

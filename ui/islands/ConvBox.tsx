@@ -29,7 +29,7 @@ export default function ConvBox() {
     taskRef.current.value = "";
     let gen_answer = null;
     if (human_msg.toLowerCase() == "go") {
-      prompt = messages[0].content;
+      const prompt = messages[0].content;
       gen_answer = server.genImageAnswer({
         role: "user",
         type: "text",
