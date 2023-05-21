@@ -4,39 +4,40 @@
 
 ## Dev Notes
 
-Provide a way using GPT to optimize prompts for Stable Diffusion usage.
+Goal. Use LLM to iterate prompts for more efficient and accurate Text-Image Generation.
 
 Plan & Progress
 
 - ~~Use GPT to generate prompts based on initial user input.~~
-
 - ~~Generate image with DALL-E with the prompt provided by GPT.~~
-
 - ~~(Iteration) Use GPT to optimize prompts in an interactive way.~~
-
-- Make Prompt more accurate.
-
-- (Evaluation) Evaluate how good the prompt is.
-
-- (Feedbacks) Make the result more convenient to the user by adding new features, such as A/B variants.
-
 - ~~(Output Variants) Hook up with local Stable Diffusion model.~~
+- ~~(Web UI) Provide a Web UI for better interaction.~~
+- Enable Python Back-end with Streaming API, Vectorstore, etc.
+- Improve Prompt Optimization Process. Consider Fine-turning or Prompt Engineering.
+- Exploration of Model. How to evaluate prompt quality?
+- Exploration of UX. Improve User Experience by Enriching UI with A/B variants, prompt variants.
+- Exploration of Diffusion. Support More Advanced Image-Gen Params, such as sampling type, ControlNet, etc.
 
-- (Distribution) Make it a python package. Make it possible to be integrated with other packagies. 
+## May 20, 2023
+- enabled image generation from Dall-E.
+- updated UI with better image/text compatibility.
+- got new ideas of python backend connection. Instead of a simple API, I'm thinking of streaming and other more advanced features. Next step, I need to focus on modeling + transformer. Will come back in around 2-3 weeks and continue the API/Back-end features.
 
-- (Web UI) Provide a Web UI for better interaction. (making progress)
+> ![](./attachments/may20.png)
 
 ## May 19, 2023
 - added initial UI with simple text generation. (Deno+Fresh)
-- TODO: need to add image gen.
-- TODO: need to connect with python back-end.
+- ~~TODO: need to add image gen.~~
+- ~~TODO: need to connect with python back-end.~~
+
 > ![](./attachments/initial_ui.png)
 
 ## May 4, 2023
 - Added Front-end on top of Node.js
 - Added Back-end Flask Server.
 - Set up CI Flow and Unittests.
-- TODO: Need to update all interfaces. They're not well connected.
+- ~~TODO: Need to update all interfaces. They're not well connected.~~
 
 ## April 26, 2023
 
