@@ -22,9 +22,11 @@ function renderTextMessage(message) {
 
 function renderImageMessage(message) {
   return (
-    <div class="flex content-center">
+    <div>
       <p class="text-sm italic font-bold"> generated image </p>
-      <img class="mt-2 h-60" src={message.content} alt="generated image" />
+      <div class="flex">
+        <img class="mx-auto h-60 border-2 border-black rounded-md" src={message.content} alt="generated image" />
+      </div>
     </div>
   )
 }

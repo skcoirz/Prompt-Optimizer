@@ -19,21 +19,21 @@ export const handler: Handlers = {
       );
     }
 
-    // const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY"));
-    // const chatCompletion = await openAI.createChatCompletion({
-    //   model: "gpt-4",
-    //   messages: [
-    //     { "role": "user", "content": msg.content },
-    //   ],
-    // });
-
-    // const answer: IMessage = {
-    //   role: "ai",
-    //   type: "text",
-    //   content: chatCompletion?.choices[0]?.message?.content || "no response",
-    // };
-    // return new Response(JSON.stringify(answer), {
-    //   status: 200,
-    // });
+    const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY"));
+    const image = await openAI.createImage({
+      prompt: msg.content,
+      n: 1,
+      size: "256x256",
+      responseFormat: "b64_json",
+    });
+    
+    const answer: IMessage = {
+      role: "ai",
+      type: "image",
+      content: "data:image/png;base64," + image.data[0].b64_json,
+    };
+    return new Response(JSON.stringify(answer), {
+      status: 200,
+    });
   },
 };
